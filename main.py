@@ -1,6 +1,6 @@
 from sympy import nextprime
-from math import sqrt
 import numpy as np
+import time
 
 
 def generate_matrix_power_list(m, max_power, mod):
@@ -30,22 +30,20 @@ def matrix_power_modulus(m, power, mod):
 
 
 def fibonacci_mod_m(n, mod):
-    return np.matmul(matrix_power_modulus(np.array([[0, 1], [1, 1]]), n, mod), np.array([[0], [1]]))[1]
-
-#
-# for i in range(10):
-#     print(fibonacci_mod_m(i, 10))
+    return int(np.matmul(matrix_power_modulus(np.array([[0, 1], [1, 1]], dtype=object), n, mod), np.array([[0], [1]]))[1][0])
 
 
-print(fibonacci_mod_m(10**14, 1234567891011))
+start_time = time.time()
 
 
-#hi = np.array([[0, 1], [1, 1]])
-#
-#print(matrix_power_modulus(hi, 4, 2))
-#
-# print(np.matmul(hi, hi) % 2)
+n = nextprime(10**14)
+total = 0
 
-#print(generate_matrix_power_list(hi, 2, 2)[2])
+for i in range(10**5):
+    total += fibonacci_mod_m(n, 1234567891011)
 
+    n = nextprime(n)
 
+print(total % 1234567891011)
+
+print(time.time()-start_time)

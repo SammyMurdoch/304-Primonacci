@@ -35,15 +35,21 @@ def fibonacci_mod_m(n, mod):
 
 start_time = time.time()
 
+# mod = 1234567891011
+# prime = 10 ** 14
+# max_n = 10 ** 5
 
-n = nextprime(10**14)
+mod = 10
+prime = 0
+max_n = 10
+
 total = 0
 
-for i in range(10**5):
-    total += fibonacci_mod_m(n, 1234567891011)
+for i in range(max_n):
+    prime = nextprime(prime)
 
-    n = nextprime(n)
-
-print(total % 1234567891011)
+    total = (total + fibonacci_mod_m(prime-1, mod)) % mod
 
 print(time.time()-start_time)
+
+print(total)
